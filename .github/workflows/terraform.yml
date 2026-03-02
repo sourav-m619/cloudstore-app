@@ -20,6 +20,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v3
+
       # 1. Authenticate using SA
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
@@ -27,10 +30,20 @@ jobs:
         with:
            credentials_json: '${{ secrets.SAGCP }}' # Replace with the name of your GitHub Actions secret
       # 2. Verify Authentication with gcloud
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
-
-      - name: 'Verify gcloud is authenticated'
+      - name: 'terraform init'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      
+      - name: Terraform Plan
+        if: github.event_name == 'pull_request'
         run: |
-          gcloud auth list
-          gcloud projects list
+          terraform plan \
+            -var-file=env.tfvars \
+            -out=tfplan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          terraform apply -auto-approve \
+            -var-file=env.tfvars
