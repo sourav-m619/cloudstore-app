@@ -8,7 +8,7 @@ variable "iam_roles" {
     default = [ "roles/storage.admin",
      "roles/iam.serviceAccountUser",
      "roles/compute.admin",
-     "iam.serviceAccounts.create"]
+     "roles/iam.serviceAccounts.create"]
 }
 
 variable "role_sa_wip_impersonate" {
