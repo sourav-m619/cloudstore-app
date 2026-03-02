@@ -5,12 +5,9 @@ on:
     branches: [ "main" ]
     paths:
       - 'terraform/**' # Only triggers when infrastructure code changes
-      - '.github\workflows\terraform.yml'
+      - '.github\workflows\**'
 
   pull_request:
-    branches: [ "main" ]
-    paths:
-      - 'terraform/**'
 
 permissions:
   contents: read
