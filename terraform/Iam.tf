@@ -1,7 +1,7 @@
 # Create a Workload Identity Pool
 resource "google_iam_workload_identity_pool" "github" {
   project                   = var.project_id
-  workload_identity_pool_id = "github-pool"
+  workload_identity_pool_id = "gitaction-pool"
   display_name              = "GitHub Actions Pool"
   description               = "Pool for GitHub Actions OIDC authentication"
 
@@ -11,7 +11,7 @@ resource "google_iam_workload_identity_pool" "github" {
 
 resource "google_iam_workload_identity_pool_provider" "github" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.github.workload_identity_pool_id
-  workload_identity_pool_provider_id = "cs-gcp-provider"
+  workload_identity_pool_provider_id = "gitaction-provider"
   display_name                       = "github"
   description                        = "GitHub Actions identity pool provider for authentication"
   disabled                           = true
