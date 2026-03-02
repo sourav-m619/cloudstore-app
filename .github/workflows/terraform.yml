@@ -1,47 +1,55 @@
-name: 'Terraform'
+name: 'Terraform Infrastructure Pipeline'
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'terraform/**'       # Trigger ONLY if files in /terraform/ change
-      - '.github/workflows/**'
+      - 'terraform/**' # Only triggers when infrastructure code changes
+      - '.github\workflows\terraform.yml'
+
   pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'terraform/**'
 
 permissions:
   contents: read
-  id-token: write # Essential for WIF
+  id-token: write # Strictly required for Workload Identity Federation
+
 jobs:
-  test-auth:
+  terraform:
     runs-on: ubuntu-latest
+    
+    # Ensures all 'run' commands automatically execute inside your terraform folder
+    defaults:
+      run:
+        working-directory: ./terraform
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: setup terraform
-        uses: hashicorp/setup-terraform@v3
-
-      # 1. Authenticate using SA
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v2'
+      # 1. Authenticate to Google Cloud (Direct WIF Method)
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
         with:
            credentials_json: '${{ secrets.SAGCP }}' # Replace with the name of your GitHub Actions secret
-      # 2. Verify Authentication with gcloud
-      - name: 'terraform init'
+     
+           # 2. Setup Terraform CLI
+      - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      
-      - name: Terraform Plan
-        if: github.event_name == '**'
-        run: |
-          terraform plan \
-            -var-file=env.tfvars \
-            -out=tfplan
 
+      # 3. Initialize Terraform (Downloads providers, sets up backend)
+      - name: Terraform Init
+        run: terraform init
+
+      # 4. Generate Execution Plan
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+
+      # 5. Apply Changes (Only runs on push to main, not on PRs)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          terraform apply -auto-approve \
-            -var-file=env.tfvars
+        run: terraform apply -auto-approve
