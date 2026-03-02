@@ -20,14 +20,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 1. Authenticate using Workload Identity Federation
+      # 1. Authenticate using SA
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: 'projects/152133621626/locations/global/workloadIdentityPools/gitaction/providers/github-pool'
-          service_account: 'wip-github@cloudstore-489011.iam.gserviceaccount.com'
-
+           credentials_json: '${{ secrets.SAGCP }}' # Replace with the name of your GitHub Actions secret
       # 2. Verify Authentication with gcloud
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
