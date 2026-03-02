@@ -14,10 +14,7 @@ resource "google_iam_workload_identity_pool_provider" "github" {
   workload_identity_pool_provider_id = "gitaction-provider"
   display_name                       = "github"
   description                        = "GitHub Actions identity pool provider for authentication"
-  disabled                           = true
-  attribute_condition = <<EOT
-    attribute.repository == "sourav-m619/cloudstore-app" &&
-EOT
+  attribute_condition                = "attribute.repository == 'sourav-m619/cloudstore-app'"
   attribute_mapping = {
     "google.subject"       = "assertion.sub"
     "attribute.actor"      = "assertion.actor"

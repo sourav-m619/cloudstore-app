@@ -13,5 +13,5 @@ variable "iam_roles" {
 
 variable "role_sa_wip_impersonate" {
     type = string
-    default = "roles/iam.iam.workloadIdentityUser"
+    default = "roles/iam.workloadIdentityUser"
 }
