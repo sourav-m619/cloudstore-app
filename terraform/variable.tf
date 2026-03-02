@@ -7,7 +7,8 @@ variable "iam_roles" {
     type = list(string)
     default = [ "roles/storage.admin",
      "roles/iam.serviceAccountUser",
-     "roles/compute.admin" ]
+     "roles/compute.admin",
+     "iam.serviceAccounts.create"]
 }
 
 variable "role_sa_wip_impersonate" {
