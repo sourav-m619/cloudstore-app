@@ -1,9 +1,9 @@
-name: 'Test GCP Authentication'
+name: 'Terraform'
 
 on:
   push:
-    branches: 
-      - '**'
+    branches: [ "main" ]
+  pull_request:
 
 
 permissions:
