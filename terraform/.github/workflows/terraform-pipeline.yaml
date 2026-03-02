@@ -1,6 +1,9 @@
 name: 'Test GCP Authentication'
 
 on:
+  push:
+    branches: 
+      - '**'
   workflow_dispatch: # Allows you to run this manually from the Actions tab
 
 permissions:
