@@ -8,8 +8,6 @@ on:
       - '.github/workflows/**'
   pull_request:
 
-
-    
 permissions:
   contents: read
   id-token: write # Essential for WIF
@@ -36,7 +34,7 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       
       - name: Terraform Plan
-        if: github.event_name == 'pull_request'
+        if: github.event_name == '**'
         run: |
           terraform plan \
             -var-file=env.tfvars \
