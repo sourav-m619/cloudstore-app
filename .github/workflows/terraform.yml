@@ -3,8 +3,9 @@ name: 'Terraform'
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - [apps]
+    paths:
+      - 'terraform/**'       # Trigger ONLY if files in /terraform/ change
+      - '.github/workflows/**'
   pull_request:
 
 
@@ -12,7 +13,6 @@ on:
 permissions:
   contents: read
   id-token: write # Essential for WIF
-
 jobs:
   test-auth:
     runs-on: ubuntu-latest
