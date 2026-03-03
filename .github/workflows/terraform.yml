@@ -33,6 +33,7 @@ jobs:
         with:
           workload_identity_provider: 'projects/152133621626/locations/global/workloadIdentityPools/gitaction-pool/providers/gitaction-provider'
           service_account: 'github-deploy@cloudstore-489011.iam.gserviceaccount.com'
+          
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
