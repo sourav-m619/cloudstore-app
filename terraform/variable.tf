@@ -9,7 +9,10 @@ variable "iam_roles" {
      "roles/iam.serviceAccountUser",
      "roles/compute.admin",
      "roles/iam.serviceAccountTokenCreator",
-     "roles/iam.workloadIdentityUser"]
+     "roles/iam.workloadIdentityUser",
+     "roles/resourcemanager.projectIamAdmin",
+     "roles/iam.workloadIdentityPoolAdmin",
+      "roles/iam.serviceAccountAdmin"]
 }
 
 variable "role_sa_wip_impersonate" {
