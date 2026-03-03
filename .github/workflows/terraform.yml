@@ -31,7 +31,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: '${{ secrets.SAGCP }}'
+          workload_identity_provider: 'projects/152133621626/locations/global/workloadIdentityPools/gitaction-pool/providers/gitaction-provider'
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
