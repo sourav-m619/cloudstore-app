@@ -36,6 +36,7 @@ resource "google_project_iam_member" "iam_roles" {
 
 resource "google_service_account_iam_member" "github_impersonation" {
   service_account_id = google_service_account.github_deploy.name
-  role = var.role_sa_wip_impersonate
+  for_each = toset(var.role_sa_wip_impersonate)
+  role = each.value
   member = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository/sourav-m619/cloudstore-app}"
 }
