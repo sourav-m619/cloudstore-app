@@ -13,7 +13,5 @@ variable "iam_roles" {
 
 variable "role_sa_wip_impersonate" {
     type = list(string)
-    default = ["roles/iam.workloadIdentityUser",
-    "roles/iam.serviceAccountUser",
-    "roles/iam.serviceAccounts.getAccessToken"]
+    default = ["roles/iam.workloadIdentityUser"]
 }
