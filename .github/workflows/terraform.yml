@@ -7,9 +7,12 @@ on:
     paths:
       - 'terraform/**'
       - '.github/workflows/**'
-  pull_request:
-    branches:
-      - main
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'terraform/**'
+  #     - '.github/workflows/**'
 
 permissions:
   contents: read
