@@ -45,7 +45,7 @@ resource "google_service_account_iam_member" "github_impersonation" {
 
 resource "google_project_iam_member" "iam_roles_gke" {
   project = var.project_id
-  for_each = toset(var.iam_roles)
+  for_each = toset(var.iam-roles-gke)
   role = each.value
   member  = "serviceAccount:${google_service_account.gke-node-sa-cs.email}"
 }
