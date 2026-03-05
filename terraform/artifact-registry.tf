@@ -4,7 +4,10 @@ resource "google_artifact_registry_repository" "cloudstore-repo" {
   repository_id = "cloudstore-image-repo"
   description   = "This Repo consists of cloudstore app Images"
   format        = "DOCKER"
-
+  
+  vulnerability_scanning_config {
+    enablement_config = "INHERITED"
+  }
   cleanup_policies {
     id     = "keep-last-10"
     action = "KEEP"
@@ -13,6 +16,8 @@ resource "google_artifact_registry_repository" "cloudstore-repo" {
     }
   }
 }
+
+
 
 # Output — needed in GitHub Actions CI/CD
 output "registry_url" {
