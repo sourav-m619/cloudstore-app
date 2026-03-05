@@ -48,6 +48,7 @@ resource "google_compute_firewall" "allow_gke_internal" {
   name      = "cloudstore-allow-gke-internal"
   network   = google_compute_network.vpc-cs.name
   direction = "INGRESS"
+  priority = 800
 
   allow {
     protocol = "tcp"
@@ -72,6 +73,7 @@ resource "google_compute_firewall" "allow_services_internal" {
   name      = "cloudstore-allow-services"
   network   = google_compute_network.vpc-cs.name
   direction = "INGRESS"
+
 
   allow {
     protocol = "tcp"
