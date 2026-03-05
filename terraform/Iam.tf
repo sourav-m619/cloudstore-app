@@ -40,3 +40,12 @@ resource "google_service_account_iam_member" "github_impersonation" {
   role = each.value
   member = "principalSet://iam.googleapis.com/projects/152133621626/locations/global/workloadIdentityPools/gitaction-pool/attribute.repository/sourav-m619/cloudstore-app"
 }
+
+#giving Iam Role to GKE Service Account
+
+resource "google_project_iam_member" "iam_roles_gke" {
+  project = var.project_id
+  for_each = toset(var.iam_roles)
+  role = each.value
+  member  = "serviceAccount:${google_service_account.gke-node-sa-cs.email}"
+}

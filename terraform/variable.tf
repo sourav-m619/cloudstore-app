@@ -32,3 +32,11 @@ variable "region" {
      type = string
      default = "us-central1"
 }
+
+variable "iam-roles-gke" {
+    type =list(string)
+    default=["roles/artifactregistry.reader",
+    "roles/logging.logWriter","roles/monitoring.metricWriter",
+    "roles/monitoring.viewer"]
+  
+}
