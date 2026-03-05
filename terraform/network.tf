@@ -22,6 +22,7 @@ resource "google_compute_subnetwork" "subnet-cs" {
     range_name    = "services"
     ip_cidr_range = "10.52.0.0/20"
   }
+  private_ip_google_access = true
 }
 
 #NAT Router to connect to the Public IP
@@ -43,3 +44,67 @@ resource "google_compute_router_nat" "nat-cs" {
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
+resource "google_compute_firewall" "allow_gke_internal" {
+  name      = "cloudstore-allow-gke-internal"
+  network   = google_compute_network.vpc-cs.name
+  direction = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["0-65535"]
+  }
+  allow {
+    protocol = "udp"
+    ports    = ["0-65535"]
+  }
+  allow {
+    protocol = "icmp"
+  }
+
+  source_ranges = [
+    "10.0.0.0/18", #node ip
+    "10.48.0.0/14", #pod ip
+  ]
+  target_tags = ["gke-cloudstore"]
+}
+
+resource "google_compute_firewall" "allow_services_internal" {
+  name      = "cloudstore-allow-services"
+  network   = google_compute_network.vpc-cs.name
+  direction = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["0-65535"]
+  }
+
+  source_ranges = ["10.52.0.0/20"] #serviceip
+  target_tags   = ["gke-cloudstore"] #destination tag i.e GKE Cluster 
+}
+
+resource "google_compute_firewall" "allow_health_checks" {
+  name      = "cloudstore-allow-health-checks"
+  network   = google_compute_network.vpc-cs.name
+  direction = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+  }
+
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"] # healthcheck ips
+  target_tags   = ["gke-cloudstore"]
+}
+
+resource "google_compute_firewall" "allow_master_to_nodes" {
+  name      = "cloudstore-allow-master-nodes"
+  network   = google_compute_network.vpc-cs.name
+  direction = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["443", "10250"]
+  }
+
+  source_ranges = ["172.16.0.0/28"] # masternodeip
+  target_tags   = ["gke-cloudstore"]
+}
