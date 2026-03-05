@@ -30,5 +30,5 @@ variable "role_sa_wip_impersonate" {
 
 variable "region" {
      type = string
-     default = "us-cental1a"
+     default = "us-cental1"
 }
