@@ -6,7 +6,7 @@ resource "google_artifact_registry_repository" "cloudstore-repo" {
   format        = "DOCKER"
   
   vulnerability_scanning_config {
-    enablement_config = "ENABLED"
+    enablement_config = "INHERITED"
   }
   cleanup_policies {
     id     = "keep-last-10"
