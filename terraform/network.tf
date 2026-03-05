@@ -70,7 +70,7 @@ resource "google_compute_firewall" "allow_gke_internal" {
 
 resource "google_compute_firewall" "allow_services_internal" {
   name      = "cloudstore-allow-services"
-  network   = google_compute_network.vpc.name
+  network   = google_compute_network.vpc-cs.name
   direction = "INGRESS"
 
   allow {
@@ -84,7 +84,7 @@ resource "google_compute_firewall" "allow_services_internal" {
 
 resource "google_compute_firewall" "allow_health_checks" {
   name      = "cloudstore-allow-health-checks"
-  network   = google_compute_network.vpc.name
+  network   = google_compute_network.vpc-cs.name
   direction = "INGRESS"
 
   allow {
@@ -97,7 +97,7 @@ resource "google_compute_firewall" "allow_health_checks" {
 
 resource "google_compute_firewall" "allow_master_to_nodes" {
   name      = "cloudstore-allow-master-nodes"
-  network   = google_compute_network.vpc.name
+  network   = google_compute_network.vpc-cs.name
   direction = "INGRESS"
 
   allow {
