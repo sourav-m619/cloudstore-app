@@ -12,7 +12,14 @@ variable "iam_roles" {
      "roles/iam.workloadIdentityUser",
      "roles/resourcemanager.projectIamAdmin",
      "roles/iam.workloadIdentityPoolAdmin",
-      "roles/iam.serviceAccountAdmin"]
+      "roles/iam.serviceAccountAdmin",
+      "roles/compute.networkAdmin", #Network resources
+      "roles/container.clusterAdmin", #for GKE Resources
+      "roles/cloudsql.admin", #For cloudSQL 
+      "roles/artifactregistry.admin", #For Artifact registry
+      "roles/secretmanager.admin", #for secret manager
+      "roles/servicenetworking.networksAdmin" #for Cloud SQL to connect with the private IP
+      ]
 }
 
 variable "role_sa_wip_impersonate" {
