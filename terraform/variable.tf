@@ -3,6 +3,7 @@ variable "project_id" {
     default = "cloudstore-489011"
 }
 
+
 variable "iam_roles" {
     type = list(string)
     default = [ "roles/storage.admin",
@@ -25,4 +26,9 @@ variable "iam_roles" {
 variable "role_sa_wip_impersonate" {
     type = list(string)
     default = ["roles/iam.workloadIdentityUser"]
+}
+
+variable "region" {
+     type = string
+     default = "us-cental1a"
 }
