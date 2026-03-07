@@ -58,7 +58,7 @@ variable "db_instance_name" {
 
 variable "db_name" {
   type = string
-  default = "cs-app-db"
+  default = "cloudstore-db"
 }
 
 variable "db_user_name" {
