@@ -46,3 +46,15 @@ resource "google_sql_database_instance" "postgres" {
     google_service_networking_connection.private_vpc_connection
   ]
 }
+
+resource "google_sql_database" "app-db" {
+    name = var.db-name
+    instance = google_sql_database_instance.postgres.id
+}
+
+resource "google_sql_user" "app-db-user" {
+  name = var.db-user-name
+  instance = google_sql_database.app-db.id
+  password = var.db-password
+}
+
