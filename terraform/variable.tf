@@ -55,3 +55,18 @@ variable "db_instance_name" {
   type = string
   default = "postgresql-cs"
 }
+
+variable "db_name" {
+  type = string
+  default = "cs-app-db"
+}
+
+variable "db_user_name" {
+  type = string
+  default = "appdb"
+}
+
+variable "db_password" {
+  type = string
+  sensitive = true
+}
