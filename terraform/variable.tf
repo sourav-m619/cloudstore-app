@@ -19,8 +19,8 @@ variable "iam_roles" {
       "roles/cloudsql.admin", #For cloudSQL 
       "roles/artifactregistry.admin", #For Artifact registry
       "roles/secretmanager.admin", #for secret manager
-      "roles/servicenetworking.networksAdmin" #for Cloud SQL to connect with the private IP
-      ]
+      "roles/servicenetworking.networksAdmin", #for Cloud SQL to connect with the private IP
+      "roles/container.developer"]
 }
 
 variable "role_sa_wip_impersonate" {
