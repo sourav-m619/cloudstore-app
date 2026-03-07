@@ -44,6 +44,15 @@ resource "google_compute_router_nat" "nat-cs" {
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
+# Allocates private IP range for Cloud SQL
+# Database never gets a public IP
+resource "google_compute_global_address" "private_ip" {
+  name          = "cloudstore-sql-private-ip"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  network       = google_compute_network.vpc-cs.id
+}
 resource "google_compute_firewall" "allow_gke_internal" {
   name      = "cloudstore-allow-gke-internal"
   network   = google_compute_network.vpc-cs.name
