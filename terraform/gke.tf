@@ -132,14 +132,4 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-# ── Outputs ───────────────────────────────────────────
-output "cluster_name" {
-  description = "GKE cluster name"
-  value       = google_container_cluster.primary.name
-}
-
-output "gke_connect_command" {
-  description = "Run this to connect kubectl to your cluster"
-  value       = "gcloud container clusters get-credentials ${var.cluster_name} --region ${var.region} --project ${var.project_id}"
-}
 
