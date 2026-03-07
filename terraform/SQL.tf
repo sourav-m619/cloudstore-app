@@ -54,7 +54,7 @@ resource "google_sql_database" "app-db" {
 
 resource "google_sql_user" "app-db-user" {
   name = var.db_user_name
-  instance = google_sql_database.app-db.id
+  instance = google_sql_database_instance.postgres.name
   password = var.db_password
 }
 
