@@ -40,3 +40,13 @@ variable "iam-roles-gke" {
     "roles/monitoring.viewer"]
   
 }
+
+variable "cluster_name" {
+  type = string
+  default = "cloud-store-cluster"
+}
+
+variable "node_machine_type" {
+  type = string
+  default = "e2-standard-2"
+}
