@@ -1,2 +1,1 @@
-db-user-name = "appuser"
-db-password = "Password123"
+db_password = "Password123"
