@@ -53,5 +53,5 @@ variable "node_machine_type" {
 
 variable "db_instance_name" {
   type = string
-  default = "postgreSQL-DB-cs"
+  default = "postgresql-cs"
 }
