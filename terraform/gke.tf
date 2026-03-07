@@ -7,11 +7,6 @@ resource "google_container_cluster" "gke-cluster" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  node_config {
-    disk_type    = "pd-standard"   # ← fixes SSD quota error
-    disk_size_gb = 50
-    machine_type = "e2-medium"     # smallest for bootstrap
-  }
   # Use our private VPC
   network    = google_compute_network.vpc-cs.name
   subnetwork = google_compute_subnetwork.subnet-cs.name
