@@ -44,15 +44,15 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/app-repo/backend:${{ github.sha }} \
-          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/app-repo/backend:latest \
+          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/backend:${{ github.sha }} \
+          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/backend:latest \
           ./apps/backend
 
       - name: Push Docker Image to Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/app-repo/${{ env.IMAGE_NAME }}:${{ github.sha }} 
-          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/app-repo/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/${{ env.IMAGE_NAME }}:${{ github.sha }} 
+          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/${{ env.IMAGE_NAME }}:latest
 
 
 
