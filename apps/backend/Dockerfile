@@ -1,11 +1,11 @@
 # ── Stage 1: Dependencies ─────────────────────────────
-FROM node:20-alpine3.9 AS deps
+FROM node:20-alpine3.19 AS deps
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
 
 # ── Stage 2: Development (hot reload) ─────────────────
-FROM node:20-alpine3.9 AS development
+FROM node:20-alpine3.19 AS development
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -14,7 +14,7 @@ EXPOSE 8080
 CMD ["node", "src/server.js"]
 
 # ── Stage 3: Production (hardened) ────────────────────
-FROM node:20-alpine3.9 AS production
+FROM node:20-alpine3.19 AS production
 
 # Non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
