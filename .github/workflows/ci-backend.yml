@@ -37,7 +37,6 @@ jobs:
       - name: Install gcloud
         uses: google-github-actions/setup-gcloud@v3
       
-      - name: docker configuratio
-        
+
 
 
