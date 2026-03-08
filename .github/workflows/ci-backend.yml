@@ -51,7 +51,7 @@ jobs:
       - name: Push Docker Image to Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/app-repo/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/app-repo/${{ env.IMAGE_NAME }}:${{ github.sha }} 
           docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT_ID }}/app-repo/${{ env.IMAGE_NAME }}:latest
 
 
