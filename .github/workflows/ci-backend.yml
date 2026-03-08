@@ -43,8 +43,8 @@ jobs:
       - name: Build Docker image
         run:
           docker build \
-          -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:${{github.sha}}\
-          -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:latest\
+          -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:${{github.sha}} \
+          -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:latest \
           . apps/backend
 
       - name: Push Docker Image to Artifact Registry
@@ -52,7 +52,7 @@ jobs:
         run:
           docker push ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:${{github.sha}} 
           docker push ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:latest
-          
+
 
 
 
