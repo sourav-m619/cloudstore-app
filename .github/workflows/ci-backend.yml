@@ -5,21 +5,23 @@ on:
     branches:
       - '**'
     paths:
-      - 'apps/**'
+      - 'apps/backend/**'
       - '.github/workflows/ci-backend.yml'
 
 permissions:
   contents: read
   id-token: write
 
+env:
+  REGISTRY: us-central1-docker.pkg.dev
+  PROJECT_ID: '${{secrets.GCP_PROJECT_ID}}'
+  REGION: '${{ secrets.GCP_REGION }}'
+  IMAGE_NAME: backend
+
 
 jobs:
-  terraform:
+  image-build-push:
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: ./terraform
 
     steps:
       - name: Checkout Code
@@ -31,4 +33,11 @@ jobs:
         with:
           workload_identity_provider: '${{secrets.WIP}}'
           service_account: '${{secrets.GCPSA}}'
+
+      - name: Install gcloud
+        uses: google-github-actions/setup-gcloud@v3
+      
+      - name: docker configuratio
+        
+
 
