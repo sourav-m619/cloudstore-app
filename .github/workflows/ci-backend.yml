@@ -16,6 +16,7 @@ env:
   PROJECT_ID: '${{secrets.GCP_PROJECT_ID}}'
   REGION: '${{secrets.GCP_REGION }}'
   IMAGE_NAME: backend
+  REGISTRY: us-central1-docker.pkg.dev
 
 
 jobs:
@@ -42,7 +43,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          IMAGE= ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}
+          IMAGE= ${{env.REGISTRY}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}
           docker build \
           -t $IMAGE:${{github.sha}} \
           -t $IMAGE:latest \
