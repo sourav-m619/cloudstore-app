@@ -1,12 +1,12 @@
-name: 'ci-backend'
+name: 'ci-frontend'
 
 on:
   push:
     branches:
       - '**'
     paths:
-      - 'apps/backend/**'
-      - '.github/workflows/ci-backend.yml'
+      - 'apps/frontend/**'
+      - '.github/workflows/ci-frontend.yml'
 
 permissions:
   contents: read
@@ -15,12 +15,12 @@ permissions:
 env:
   PROJECT_ID: '${{secrets.GCP_PROJECT_ID}}'
   REGION: '${{secrets.GCP_REGION }}'
-  IMAGE_NAME: backend
+  IMAGE_NAME: frontend
   REGISTRY: us-central1-docker.pkg.dev
 
 
 jobs:
-  image-build-push-backend:
+  image-build-push-frontend:
     runs-on: ubuntu-latest
 
     steps:
@@ -44,8 +44,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/backend:${{ github.sha }} \
-          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/backend:latest \
+          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/frontend:${{ github.sha }} \
+          -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/frontend:latest \
           ./apps/backend
 
       - name: Push Docker Image to Artifact Registry
