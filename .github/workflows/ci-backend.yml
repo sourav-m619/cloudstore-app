@@ -41,10 +41,11 @@ jobs:
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
       - name: Build Docker image
-        run:
+        run: |
+          IMAGE= ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}
           docker build \
-          -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:${{github.sha}} \
-          -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:latest \
+          -t $IMAGE:${{github.sha}} \
+          -t $IMAGE:latest \
           ./apps/backend
 
       - name: Push Docker Image to Artifact Registry
