@@ -45,7 +45,7 @@ jobs:
           docker build \
           -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:${{github.sha}} \
           -t ${{env.REGION}}/${{env.PROJECT_ID}}/app-repo/${{env.IMAGE_NAME}}:latest \
-          .apps/backend
+          ./apps/backend
 
       - name: Push Docker Image to Artifact Registry
         if: github.ref == 'refs/head/main'
