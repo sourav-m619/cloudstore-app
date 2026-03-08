@@ -1,4 +1,4 @@
-name: 'Terraform Infrastructure Pipeline'
+name: 'ci-backend'
 
 on:
   push:
@@ -6,11 +6,12 @@ on:
       - '**'
     paths:
       - 'apps/**'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/ci-backend.yml'
 
 permissions:
   contents: read
   id-token: write
+
 
 jobs:
   terraform:
