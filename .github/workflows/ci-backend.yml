@@ -6,7 +6,7 @@ on:
       - '**'
     paths:
       - 'apps/backend/**'
-      - '.github/workflows/ci-backend.yaml'
+      - '.github/workflows/ci-backend.yml'
 
 permissions:
   contents: read
