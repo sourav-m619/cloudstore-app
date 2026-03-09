@@ -71,3 +71,7 @@ variable "db_password" {
   sensitive = true
 }
 
+variable "backend_sa_role" {
+  type = list(string)
+  default = [ "roles/secretmanager.secretAccessor", "roles/cloudsql.client" ]
+}

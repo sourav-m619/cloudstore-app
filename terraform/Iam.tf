@@ -49,3 +49,20 @@ resource "google_project_iam_member" "iam_roles_gke" {
   role = each.value
   member  = "serviceAccount:${google_service_account.gke-node-sa-cs.email}"
 }
+
+#KSA and GSA Binding for BACKEND Deployment
+resource "google_service_account_iam_member" "backend_sa_impersonation" {
+  service_account_id = google_service_account.backend-sa.name
+  for_each = toset(var.role_sa_wip_impersonate)
+  role = each.value
+  member = "serviceAccount:${var.project_id}.svc.id.goog[backend/backend-ksa]"
+}
+
+#Giving Permission to backend-sa
+
+resource "google_project_iam_member" "iam_roles_gke" {
+  project = var.project_id
+  for_each = toset(var.backend_sa_role)
+  role = each.value
+  member  = "serviceAccount:${google_service_account.backend-sa.email}"
+}
