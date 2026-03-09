@@ -60,7 +60,7 @@ resource "google_service_account_iam_member" "backend_sa_impersonation" {
 
 #Giving Permission to backend-sa
 
-resource "google_project_iam_member" "iam_roles_gke" {
+resource "google_project_iam_member" "backend_sa_roles" {
   project = var.project_id
   for_each = toset(var.backend_sa_role)
   role = each.value
