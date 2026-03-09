@@ -74,7 +74,7 @@ jobs:
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/app-repo/backend:${{ github.sha }}
+          image-ref: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/backend:${{ github.sha }}
           format: 'table'
           exit-code: '1'
           severity: 'CRITICAL'
