@@ -9,7 +9,7 @@ export const useCartStore = create((set, get) => ({
     set({
       items: found
         ? items.map((i) => i.id === product.id ? { ...i, qty: i.qty + qty } : i)
-        : [...items, { ...product, qty }],
+        : [...items, { ...product, price: parseFloat(product.price), qty }],
     });
   },
 
@@ -22,6 +22,6 @@ export const useCartStore = create((set, get) => ({
 
   clearCart: () => set({ items: [] }),
 
-  get total()     { return get().items.reduce((s, i) => s + i.price * i.qty, 0); },
+  get total()     { return get().items.reduce((s, i) => s + parseFloat(i.price) * i.qty, 0); },
   get itemCount() { return get().items.reduce((s, i) => s + i.qty, 0); },
 }));
