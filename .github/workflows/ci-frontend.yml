@@ -6,6 +6,7 @@ on:
       - '**'
     paths:
       - 'apps/frontend/**'
+      - '.github/workflows/ci-frontend.yaml'
 
 
 permissions:
