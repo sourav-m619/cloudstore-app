@@ -42,7 +42,6 @@ const db = {
     }
   },
 
-  // Atomic multi-step operations — if anything fails, everything rolls back
   async transaction(callback) {
     const client = await pool.connect();
     try {
@@ -59,7 +58,7 @@ const db = {
   },
 
   async migrate() {
-    // Create tables if they don't exist yet
+    // Step 1 — Create all tables first
     await this.query(`
       CREATE TABLE IF NOT EXISTS users (
         id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -110,7 +109,7 @@ const db = {
       CREATE INDEX IF NOT EXISTS idx_users_email          ON users(email);
     `);
 
-    // Seed products only if table is empty
+    // Step 2 — Seed products
     await this.query(`
       INSERT INTO products (name, description, price, stock, category, image_url)
       SELECT * FROM (VALUES
@@ -140,6 +139,19 @@ const db = {
          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400')
       ) AS v(name, description, price, stock, category, image_url)
       WHERE NOT EXISTS (SELECT 1 FROM products LIMIT 1);
+    `);
+
+    // Step 3 — Seed test user AFTER tables created ✅
+    await this.query(`
+      INSERT INTO users (id, name, email, password_hash, role)
+      VALUES (
+        '00000000-0000-0000-0000-000000000001',
+        'Demo User',
+        'demo@cloudstore.com',
+        'demo_password_hash',
+        'customer'
+      )
+      ON CONFLICT (id) DO NOTHING;
     `);
   },
 
