@@ -12,3 +12,10 @@ resource "google_service_account" "gke-node-sa-cs" {
   description  = "Used by GKE nodes — least privilege"
   project = var.project_id
 }
+#backend SA
+resource "google_service_account" "backend-sa" {
+  account_id   = "backend-sa"
+  display_name = "BACKEND SA"
+  description  = "Used by backend POD"
+  project = var.project_id
+}
