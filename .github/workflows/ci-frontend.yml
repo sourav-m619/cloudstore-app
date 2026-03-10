@@ -1,5 +1,4 @@
 name: 'ci-frontend'
-
 on:
   push:
     branches:
@@ -7,7 +6,6 @@ on:
     paths:
       - 'apps/frontend/**'
       - '.github/workflows/ci-frontend.yaml'
-
 
 permissions:
   contents: read
