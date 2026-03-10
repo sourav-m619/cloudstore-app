@@ -45,7 +45,7 @@ jobs:
           docker build \
           -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/frontend:${{ github.sha }} \
           -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloudstore-image-repo/frontend:latest \
-          ./apps/backend
+          ./apps/frontend
 
       - name: Push Docker Image to Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
