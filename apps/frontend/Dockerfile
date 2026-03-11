@@ -1,5 +1,5 @@
 # ── Stage 1: Build React app ──────────────────────────
-FROM node:20-alpine AS build
+FROM node:20-alpine3.20 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -10,7 +10,7 @@ ENV  REACT_APP_API_URL=$REACT_APP_API_URL
 RUN npm run build
 
 # ── Stage 2: Development (hot reload) ─────────────────
-FROM node:20-alpine AS development
+FROM node:20-alpine3.20 AS development
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -20,7 +20,7 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 # ── Stage 3: Production (hardened nginx) ──────────────
-FROM nginx:1.25-alpine AS production
+FROM nginx:1.25-alpine3.20 AS production
 
 # Non-root nginx setup
 RUN addgroup -g 1001 -S appgroup && \
