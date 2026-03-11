@@ -2,6 +2,7 @@ const express = require("express");
 const Joi     = require("joi");
 const db      = require("../db");
 const { AppError } = require("../middleware/errorHandler");
+const { productsViewedCounter } = require("../metrics");
 
 const router = express.Router();
 
@@ -39,6 +40,12 @@ router.get("/", async (req, res) => {
 
   const result = await db.query(query, params);
 
+  // Record products list view
+  productsViewedCounter.add(1, {
+    type: 'list',
+    category: category || 'all',
+  });
+
   res.json({
     data: result.rows,
     pagination: {
@@ -54,6 +61,13 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const result = await db.query("SELECT * FROM products WHERE id = $1", [req.params.id]);
   if (!result.rows[0]) throw new AppError("Product not found", 404);
+
+  // Record individual product view
+  productsViewedCounter.add(1, {
+    type: 'detail',
+    category: result.rows[0].category || 'unknown',
+  });
+
   res.json({ data: result.rows[0] });
 });
 

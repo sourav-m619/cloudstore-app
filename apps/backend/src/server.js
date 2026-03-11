@@ -1,6 +1,8 @@
+require('./tracing');
 require("express-async-errors");
 require("dotenv").config();
 
+const express = require('express');
 const app    = require("./app");
 const logger = require("./utils/logger");
 const db     = require("./db");
