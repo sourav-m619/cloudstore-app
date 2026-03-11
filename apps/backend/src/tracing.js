@@ -1,5 +1,4 @@
 'use strict';
-
 const { NodeSDK } = require('@opentelemetry/sdk-node');
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-grpc');
 const { OTLPMetricExporter } = require('@opentelemetry/exporter-metrics-otlp-grpc');
@@ -8,7 +7,9 @@ const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumenta
 const { Resource } = require('@opentelemetry/resources');
 const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
 
-const collectorUrl = process.env.OTEL_COLLECTOR_URL || 'grpc://localhost:4317';
+// Strip grpc:// prefix — OTLP exporter expects host:port only
+const rawUrl = process.env.OTEL_COLLECTOR_URL || 'grpc://localhost:4317';
+const collectorUrl = rawUrl.replace('grpc://', '');
 
 const sdk = new NodeSDK({
   resource: new Resource({
@@ -16,18 +17,15 @@ const sdk = new NodeSDK({
     [SemanticResourceAttributes.SERVICE_VERSION]: '1.0.0',
     [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: process.env.NODE_ENV || 'production',
   }),
-
   traceExporter: new OTLPTraceExporter({
     url: collectorUrl,
   }),
-
   metricReader: new PeriodicExportingMetricReader({
     exporter: new OTLPMetricExporter({
       url: collectorUrl,
     }),
     exportIntervalMillis: 10000,
   }),
-
   instrumentations: [
     getNodeAutoInstrumentations({
       '@opentelemetry/instrumentation-http': { enabled: true },
@@ -47,5 +45,3 @@ process.on('SIGTERM', () => {
     .catch(err => console.error('Error shutting down OpenTelemetry', err))
     .finally(() => process.exit(0));
 });
-
-module.exports = sdk;
