@@ -22,6 +22,7 @@ CMD ["npm", "start"]
 # ── Stage 3: Production (hardened nginx) ──────────────
 FROM nginx:1.27-alpine AS production
 
+
 # Non-root nginx setup
 RUN addgroup -g 1001 -S appgroup && \
     adduser  -u 1001 -S appuser -G appgroup && \
@@ -29,7 +30,7 @@ RUN addgroup -g 1001 -S appgroup && \
     chown -R appuser:appgroup /var/log/nginx   && \
     touch /var/run/nginx.pid  && \
     chown -R appuser:appgroup /var/run/nginx.pid
-
+RUN apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build --chown=appuser:appgroup /app/build /usr/share/nginx/html
 
