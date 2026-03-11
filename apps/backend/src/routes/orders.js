@@ -2,6 +2,11 @@ const express = require("express");
 const Joi     = require("joi");
 const db      = require("../db");
 const { AppError } = require("../middleware/errorHandler");
+const {
+  ordersCounter,
+  cartItemsHistogram,
+  orderValueHistogram,
+} = require("../metrics");
 
 const router = express.Router();
 
@@ -132,6 +137,14 @@ router.post("/", async (req, res) => {
 
     return newOrder;
   });
+
+  // Record OTEL business metrics
+  ordersCounter.add(1, {
+    status: 'success',
+    environment: process.env.NODE_ENV || 'production',
+  });
+  cartItemsHistogram.record(items.length);
+  orderValueHistogram.record(parseFloat(order.total_amount));
 
   res.status(201).json({ data: order });
 });
