@@ -11,7 +11,7 @@ Deployment to the GKE cluster is managed asynchronously via ArgoCD in the [`clou
 
 
 <img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/f2c6bc60-5e17-41fe-9974-af3f9a359b65" />
-<img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/f2c6bc60-5e17-41fe-9974-af3f9a359b65" />
+
 
 ---
 
@@ -161,4 +161,5 @@ terraform plan -target=module.gke
 
 terraform apply -target=module.gke
 Note on Terraform State: State is locked via GCS. Do not attempt to force-unlock unless you have confirmed no CI pipelines are currently running.
+
 
