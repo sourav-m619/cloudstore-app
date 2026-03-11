@@ -20,7 +20,7 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 # ── Stage 3: Production (hardened nginx) ──────────────
-FROM nginx:1.25-alpine3.20 AS production
+FROM nginx:1.25-alpine AS production
 
 # Non-root nginx setup
 RUN addgroup -g 1001 -S appgroup && \
