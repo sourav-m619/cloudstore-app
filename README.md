@@ -1,4 +1,4 @@
-<img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/4f4dddf5-0d6a-4aed-a973-5d8e167b8fa7" /><img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/4f4dddf5-0d6a-4aed-a973-5d8e167b8fa7" /># ☁️ CloudStore: Application & Infrastructure Monorepo
+CloudStore: Application & Infrastructure Monorepo
 
 ![CI Backend](https://img.shields.io/badge/CI_Backend-Passing-success?style=for-the-badge&logo=githubactions)
 ![CI Frontend](https://img.shields.io/badge/CI_Frontend-Passing-success?style=for-the-badge&logo=githubactions)
@@ -174,6 +174,7 @@ terraform plan -target=module.gke
 
 terraform apply -target=module.gke
 Note on Terraform State: State is locked via GCS. Do not attempt to force-unlock unless you have confirmed no CI pipelines are currently running.
+
 
 
 
