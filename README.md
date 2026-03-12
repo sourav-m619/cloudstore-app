@@ -1,4 +1,4 @@
-# ☁️ CloudStore: Application & Infrastructure Monorepo
+<img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/4f4dddf5-0d6a-4aed-a973-5d8e167b8fa7" /><img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/4f4dddf5-0d6a-4aed-a973-5d8e167b8fa7" /># ☁️ CloudStore: Application & Infrastructure Monorepo
 
 ![CI Backend](https://img.shields.io/badge/CI_Backend-Passing-success?style=for-the-badge&logo=githubactions)
 ![CI Frontend](https://img.shields.io/badge/CI_Frontend-Passing-success?style=for-the-badge&logo=githubactions)
@@ -11,6 +11,19 @@ Deployment to the GKE cluster is managed asynchronously via ArgoCD in the [`clou
 
 
 <img width="1376" height="768" alt="4c49115290ac83f96cbb36d00221fccf" src="https://github.com/user-attachments/assets/f2c6bc60-5e17-41fe-9974-af3f9a359b65" />
+
+<img width="1867" height="913" alt="image" src="https://github.com/user-attachments/assets/2480005e-94a8-422e-8633-13ede4d22c0d" />
+
+<img width="1901" height="921" alt="image" src="https://github.com/user-attachments/assets/73b4bf54-7c5b-4478-b009-b10acf2125c6" />
+<img width="1364" height="680" alt="webpage1" src="https://github.com/user-attachments/assets/96e52802-2875-44ad-97fe-ef705a67bc62" />
+<img width="1355" height="678" alt="product-page" src="https://github.com/user-attachments/assets/d74bd046-8647-410b-a06f-8f140f6f7e97" />
+
+<img width="1353" height="676" alt="order-page" src="https://github.com/user-attachments/assets/059c98dd-d38b-4430-86f8-246422e7bdeb" />
+
+
+
+
+
 
 
 ---
@@ -161,5 +174,6 @@ terraform plan -target=module.gke
 
 terraform apply -target=module.gke
 Note on Terraform State: State is locked via GCS. Do not attempt to force-unlock unless you have confirmed no CI pipelines are currently running.
+
 
 
